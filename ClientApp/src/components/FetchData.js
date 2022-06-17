@@ -26,8 +26,6 @@ componentDidMount() {
 render() {
   return (
     <div>
-      <p>  ID = {this.state.FamilyMemberData.id}</p>
-      <p>  FAMILY ID = {this.state.FamilyMemberData.familyId}</p>
       <p>  NAME = {this.state.FamilyMemberData.name}</p>
       <p>  LEVEL = {this.state.FamilyMemberData.level}</p>
     </div>

@@ -1,4 +1,7 @@
+using System.Net.Mime;
 using System;
+using Google.Cloud.Firestore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
@@ -12,6 +15,7 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "./bdo-helper-365d3-firebase-adminsdk-l0v81-5cc5e8b802.json");
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
