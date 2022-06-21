@@ -19,10 +19,10 @@ public class FamilyMemberController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<FamilyMember> Get()
+		[Route("getFamilyMember/{id}")]
+    public async Task<FamilyMember> GetById(string id)
     {
-        var familyMember = await _repository.getLevel();
-            
-        return familyMember;
+      var familyMember = await _repository.GetById(id);
+      return familyMember;
     }
 }

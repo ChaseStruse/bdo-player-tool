@@ -6,27 +6,21 @@ using System.Data;
 using System.Data.Common;
 using Google.Cloud.Firestore;
 using bdo_player_tool.Models;
+using Newtonsoft.Json;
 
 namespace bdo_player_tool.Repositories
 {
     public class FamilyMemberRepository
     {
         FirestoreDb db = FirestoreDb.Create("bdo-helper-365d3");
+				const string COLLECTION = "FamilyMembers";
 
-        public async Task<FamilyMember> getLevel(){
-            DocumentReference familyMemRef = db.Collection("FamilyMembers").Document("HaZOAjSvHnrK4x1ZEFRP");
+        public async Task<FamilyMember> GetById(string id){
+            DocumentReference familyMemRef = db.Collection(COLLECTION).Document(id);
             DocumentSnapshot snapshot = await familyMemRef.GetSnapshotAsync();
 
             if(snapshot.Exists) {
-                Dictionary<string, object> familyMemberDictionary = snapshot.ToDictionary();
-
-                var level = familyMemberDictionary.Where(x => x.Key == "Level").FirstOrDefault().Value;
-                var name = familyMemberDictionary.Where(x => x.Key == "Name").FirstOrDefault().Value.ToString();
-
-                FamilyMember familyMember = new FamilyMember{
-                    Level = Convert.ToInt32(level),
-                    Name = name
-                };
+                var familyMember = snapshot.ConvertTo<FamilyMember>();
                 return familyMember;
             }
             else{

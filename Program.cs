@@ -15,7 +15,7 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "./bdo-helper-365d3-firebase-adminsdk-l0v81-5cc5e8b802.json");
+Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "./secrets.json");
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
