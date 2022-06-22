@@ -16,16 +16,23 @@ namespace bdo_player_tool.Repositories
 				const string COLLECTION = "FamilyMembers";
 
         public async Task<FamilyMember> GetById(string id){
-            DocumentReference familyMemRef = db.Collection(COLLECTION).Document(id);
-            DocumentSnapshot snapshot = await familyMemRef.GetSnapshotAsync();
+          DocumentReference familyMemRef = db.Collection(COLLECTION).Document(id);
+					DocumentSnapshot snapshot = await familyMemRef.GetSnapshotAsync();
 
-            if(snapshot.Exists) {
-                var familyMember = snapshot.ConvertTo<FamilyMember>();
-                return familyMember;
-            }
-            else{
-                return null;
-            }
+          if(snapshot.Exists) {
+            var familyMember = snapshot.ConvertTo<FamilyMember>();
+            return familyMember;
+          }
+          else{
+          	return null;
+          }
         }
+
+				public async Task<string> AddFamilyMember(FamilyMember familyMember) {
+					string id = Guid.NewGuid().ToString();
+					Console.WriteLine(familyMember.Level + " " + familyMember.Name);
+					await db.Collection(COLLECTION).Document(id).SetAsync(familyMember);
+					return id;
+				}
     }
 }

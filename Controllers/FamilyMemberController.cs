@@ -25,4 +25,11 @@ public class FamilyMemberController : ControllerBase
       var familyMember = await _repository.GetById(id);
       return familyMember;
     }
+
+		[HttpPost]
+		[Route("addFamilyMember")]
+		public async Task<string> AddFamilyMember(FamilyMember familyMember) {
+			var familyMemberId = await _repository.AddFamilyMember(familyMember);
+			return familyMemberId;
+		}
 }

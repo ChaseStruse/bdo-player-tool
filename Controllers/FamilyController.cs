@@ -18,5 +18,13 @@ public class FamilyController : ControllerBase {
 		var family = await _repository.GetFamilyAsync(documentId);
 		return family;
 	}
+
+	[HttpGet]
+	[Route("getFamilyMember/{familyId}/{familyMemberId}")]
+	public async Task<FamilyMember> GetFamilyMember(string familyId, string familyMemberId) {
+		var familyMember = await _repository.GetFamilyMemberAsync(familyId, familyMemberId);
+		return familyMember;
+	}
+	
 }
 

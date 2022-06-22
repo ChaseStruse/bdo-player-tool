@@ -7,12 +7,10 @@ export class FetchData extends Component {
 	constructor() {
     super();
     this.state = {
-			name: "",
-			level: 0,
-			familyId: "",
 			familyMemberId: "HaZOAjSvHnrK4x1ZEFRP",
-			lifeSkillData: {},
-			family: {}
+			family: {},
+			familyMemberFromFamily: {},
+			familyMemberFromFamilyLifeSkills: {}
     };
   }
 
@@ -26,37 +24,53 @@ export class FetchData extends Component {
 			});
 	}
   
-	async getFamilyMemberData() {
-    await axios
-      .get(`https://localhost:7119/familymember/getFamilyMember/${this.state.familyMemberId}`)
-      .then((response) => {
-        this.setState({
-					name: response.data.name,
-					level: response.data.level,
-					familyId: response.data.familyId,
-					lifeSkillData: response.data.lifeSkills
+	async getFamilyMemberDataFromFamily(familyId, familyMemberId) {
+		await axios
+			.get(`https://localhost:7119/family/getFamilyMember/${familyId}/${familyMemberId}`)
+			.then((response) => {
+				this.setState ({
+					familyMemberFromFamily: response.data,
+					familyMemberFromFamilyLifeSkills: response.data.lifeSkills
 				});
 			});
-	};
+	}
 
+	async addFamilyMember() {
+		await axios.post('https://localhost:7119/familymember/addFamilyMember', {
+			name: 'Post Name',
+			level: 26,
+			familyId: 's9bRGGvpHkkrQNaHSicH',
+			lifeSkills: {
+				'fishing': 1
+			}
+		})
+		.then(function(response) {
+			console.log('This is the post response: ' + response.data);
+		})
+		.catch(function(error) {
+			console.log('Error within the post: ' + error);
+		});
+	}
   async componentDidMount() {
-    await this.getFamilyMemberData();
 		await this.getFamilyData(this.state.familyId);
+		await this.getFamilyMemberDataFromFamily('s9bRGGvpHkkrQNaHSicH', 'wz2vcAthPozpiK7oZPN2');
+		console.log(JSON.stringify(this.state.familyMemberFromFamilyLifeSkills));
   }
 
   render() {
     return (
       <div>
-        <p> NAME = {this.state.name}</p>
-        <p> LEVEL = {this.state.level}</p>
+				<button onClick={() => this.addFamilyMember()}> Click me </button>
+        <p> NAME = {this.state.familyMemberFromFamily.name}</p>
+        <p> LEVEL = {this.state.familyMemberFromFamily.level}</p>
         <p> Life Skills: </p>
 				{
-					Object.keys(this.state.lifeSkillData).map((key, index) => {
+					Object.keys(this.state.familyMemberFromFamilyLifeSkills).map((key, index) => {
         		return (
 							<div>
 								<ul>
-            			<li key="{index}">
-              			{key}: {this.state.lifeSkillData[key]}
+            			<li>
+              			 {key}: {this.state.familyMemberFromFamilyLifeSkills.key}
             			</li>
 								</ul>
 							</div>

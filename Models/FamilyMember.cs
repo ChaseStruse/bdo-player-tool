@@ -16,7 +16,7 @@ namespace bdo_player_tool.Models
 
 			[JsonProperty("FamilyId")]
 			[FirestoreProperty("FamilyId")]
-			public string FamilyId { get; set; }
+			public string? FamilyId { get; set; }
 
 			[JsonProperty("LifeSkills")]
 			[FirestoreProperty("LifeSkills")]
