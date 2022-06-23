@@ -52,7 +52,7 @@ export class FetchData extends Component {
 		});
 	}
   async componentDidMount() {
-		await this.getFamilyData(this.state.familyId);
+		await this.getFamilyData('s9bRGGvpHkkrQNaHSicH');
 		await this.getFamilyMemberDataFromFamily('s9bRGGvpHkkrQNaHSicH', 'wz2vcAthPozpiK7oZPN2');
 		console.log(JSON.stringify(this.state.familyMemberFromFamilyLifeSkills));
   }
