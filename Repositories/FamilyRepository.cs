@@ -21,9 +21,11 @@ namespace bdo_player_tool.Repositories {
 			}
 		}
 
-		public async Task<FamilyMember> GetFamilyMemberAsync(string familyId, string familyMemberId) {
-			DocumentReference docRef = db.Collection(COLLECTION).Document(familyId).Collection("FamilyMembers").Document(familyMemberId);
+		public async Task<FamilyMember> GetFamilyMemberAsync(string familyName, string familyMemberId) {
+			DocumentReference docRef = db.Collection(COLLECTION).Document(familyName).Collection("FamilyMembers").Document(familyMemberId);
 			DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+
+			Console.WriteLine("GetFamilyMemberAsync has been hit");
 
 			if(snapshot.Exists) {
 				var familyMember = snapshot.ConvertTo<FamilyMember>();
@@ -32,6 +34,15 @@ namespace bdo_player_tool.Repositories {
 			else{
 				return null;
 			}
+		}
+
+		public async Task<string> AddFamilyMember(string familyName, FamilyMember familyMember){
+			string id = Guid.NewGuid().ToString();
+			
+			Console.WriteLine("AddFamilyMember has been hit");
+
+			await db.Collection(COLLECTION).Document(familyName).Collection("FamilyMembers").Document(id).SetAsync(familyMember);
+			return id;
 		}
 	}
 

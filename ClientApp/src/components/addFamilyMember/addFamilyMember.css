@@ -1,0 +1,24 @@
+.formFields {
+	margin: auto;
+	width: 300px;
+}
+
+.formFields label {
+    display: inline-block;
+    clear: left;
+    width: 250px;
+    text-align: left;
+}
+
+.formFields input {
+	display: inline-block;
+	width: 300px;
+}
+
+.lifeSkillArea {
+	padding-top: 2em;
+}
+
+.lifeSkillArea input {
+	text-align: right;
+}
