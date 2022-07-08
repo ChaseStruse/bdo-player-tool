@@ -20,11 +20,16 @@ public class FamilyController : ControllerBase {
 	}
 
 	[HttpGet]
-	[Route("getFamilyMember/{familyId}/{familyMemberId}")]
-	public async Task<FamilyMember> GetFamilyMember(string familyId, string familyMemberId) {
-		var familyMember = await _repository.GetFamilyMemberAsync(familyId, familyMemberId);
+	[Route("getFamilyMember/{familyName}/{familyMemberId}")]
+	public async Task<FamilyMember> GetFamilyMember(string familyName, string familyMemberId) {
+		var familyMember = await _repository.GetFamilyMemberAsync(familyName, familyMemberId);
 		return familyMember;
 	}
-	
+
+	[HttpPost]
+	[Route("addFamilyMember/{familyName}")]
+	public async Task<string> AddFamilyMember(string familyName, FamilyMember familyMember) {
+		return await _repository.AddFamilyMember(familyName, familyMember);
+	}
 }
 
